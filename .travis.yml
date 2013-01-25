@@ -12,4 +12,8 @@ script:
     - "cfx xpi"
 
 notifications:
-  irc: "irc.cc.tut.fi#foxonfire"
+  irc:
+    channels:
+        - "irc.freenode.org#travistesting"
+        - "irc.cc.tut.fi#ohtufox"
+  email: false
