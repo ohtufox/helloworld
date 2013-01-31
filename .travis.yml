@@ -15,5 +15,7 @@ notifications:
   irc:
     channels:
         - "irc.freenode.org#travistesting"
+        - "irc.mozilla.org#travistesting"
+        - "irc.cc.tut.fi#travistesting"
     use_notice: true
   email: true
