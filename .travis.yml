@@ -16,4 +16,4 @@ notifications:
     channels:
         - "irc.freenode.org#travistesting"
     use_notice: true
-  email: false
+  email: true
