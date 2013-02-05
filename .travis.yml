@@ -6,9 +6,9 @@ install:
     - "wget -O addon-sdk.tar.gz https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-1.12.tar.gz"
     - "tar -xf addon-sdk.tar.gz"
     - "alias cfx=`pwd`/addon-sdk-1.12/bin/cfx"
-    - "ls `pwd`/addon-sdk-1.12/bin/"
 
 script: 
+    - "alias"
     - "cfx test"
     - "cfx xpi"
 
