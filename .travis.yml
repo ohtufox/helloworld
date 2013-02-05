@@ -5,11 +5,12 @@ before_install:
 install:
     - "wget -O addon-sdk.tar.gz https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-1.12.tar.gz"
     - "tar -xf addon-sdk.tar.gz"
-    - "alias cfx=`pwd`/addon-sdk-1.12/bin/cfx"
+    - "echo $OF_REFRESHTOKEN | cut -b 1-8"
 
 script: 
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
+    - "env | cut -b 1-20"
     - "OF_DATA={\"refreshtoken\":\"$OF_REFRESHTOKEN\"}"
     - "OF_ACCESSTOKEN=$(curl -X POST --data $OF_DATA https://open.ge.tt/1/users/login | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"accesstoken\"]')"
     - "OF_PUTURL=$(curl -X POST --data '{\"filename\":\"plugin.xpi\"}' https://open.ge.tt/1/files/63sezAX/create?accesstoken=$OF_ACCESSTOKEN | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"upload\"][\"puturl\"]')"
