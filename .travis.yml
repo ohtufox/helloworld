@@ -5,13 +5,12 @@ before_install:
 install:
     - "wget -O addon-sdk.tar.gz https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-1.12.tar.gz"
     - "tar -xf addon-sdk.tar.gz"
-    - "echo $OF_REFRESHTOKEN | cut -b 1-8"
 
 script: 
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
     - "env | cut -b 1-20"
-    - "OF_DATA={\"refreshtoken\":\"$OF_REFRESHTOKEN\"}"
+    - "OF_DATA={\"refreshtoken\":\"$OF_RT1$OF_RT2\"}"
     - "OF_ACCESSTOKEN=$(curl -X POST --data $OF_DATA https://open.ge.tt/1/users/login | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"accesstoken\"]')"
     - "OF_PUTURL=$(curl -X POST --data '{\"filename\":\"plugin.xpi\"}' https://open.ge.tt/1/files/63sezAX/create?accesstoken=$OF_ACCESSTOKEN | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"upload\"][\"puturl\"]')"
     - "curl --upload-file testdon.xpi $OF_PUTURL"
@@ -27,6 +26,7 @@ notifications:
   
 env:
   global:
-    secure: "kEbpbQQMU/mRpgvkHh53qDi9Po25amSi9UJ4nDW4fkFSQvOBDShPBAvW2Sg3\nPkwTq2Y5vHEb7VQ0zCmYwgs/x+qA2JAJclo6FLyZaOXuZokDHMp4OC9fyPdJ\nVT+R2GX3k4gBjYC7q1n+XW5d+ydlQ/WdEoBlc+FMCSEoIq4hjTg="
+    secure: "lUjK1TJRgf8GnXisXgrRtRSJqkIUBs77ioPQkW1lDO96snd9ybKxRXhLNvsy\nn9Wyvfzcg0oyniUWJZn/F1hn1iC4YQAnrtLC2DPr8vHXQh3xtIEJ6heb+BEO\nn6QRkV8QC3vAL2+CIyJLLPftQgYZYjJr9m9fwc5PQmDa4RmRDeo="
+    secure: "E2K5lPUjAEv3s+KKls5nwss+IEqusFovubz2K1LvqpX8J27GoSwaz6VVO9fL\nhpUgBfVUSSdFarEiHY1dQF/ma2Slzr2BYRl+ilQKLab64r+dhdr5UgPsOUnv\nAUV/3I1KY8uxJQzz7vErRbUjrgtRF2GNySBvFGrdZNtqoh+G0so="
 
 
