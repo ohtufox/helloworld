@@ -8,8 +8,8 @@ install:
     - "alias cfx=`pwd`/addon-sdk-1.12/bin/cfx"
 
 script: 
-    - "/home/travis/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
-    - "/home/travis/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
+    - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
+    - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
     - ./script.sh
 
 notifications:
