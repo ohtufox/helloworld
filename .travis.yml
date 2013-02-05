@@ -10,6 +10,7 @@ install:
 script: 
     - "/home/travis/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
     - "/home/travis/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
+    - ./script.sh
 
 notifications:
   irc:
