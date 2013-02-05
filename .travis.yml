@@ -1,7 +1,6 @@
 before_install:
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
-    - "export OF_REFRESHTOKEN=$OF_REFRESHTOKEN"
 
 install:
     - "wget -O addon-sdk.tar.gz https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-1.12.tar.gz"
@@ -9,8 +8,8 @@ install:
     - "alias cfx=`pwd`/addon-sdk-1.12/bin/cfx"
 
 script: 
-    - "$HOME/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
-    - "€HOME/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
+    - "/home/travis/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
+    - "/home/travis/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
     - ./script.sh
 
 notifications:
