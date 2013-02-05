@@ -10,7 +10,10 @@ install:
 script: 
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
-    - ./script.sh
+    - "OF_DATA={\"refreshtoken\":\"$OF_REFRESHTOKEN\"}"
+    - "OF_ACCESSTOKEN=$(curl -X POST --data $OF_DATA https://open.ge.tt/1/users/login | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"accesstoken\"]')"
+    - "OF_PUTURL=$(curl -X POST --data '{\"filename\":\"plugin.xpi\"}' https://open.ge.tt/1/files/63sezAX/create?accesstoken=$OF_ACCESSTOKEN | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"upload\"][\"puturl\"]')"
+    - "curl --upload-file testdon.xpi $OF_PUTURL"
 
 notifications:
   irc:
@@ -24,3 +27,5 @@ notifications:
 env:
   global:
     secure: "kEbpbQQMU/mRpgvkHh53qDi9Po25amSi9UJ4nDW4fkFSQvOBDShPBAvW2Sg3\nPkwTq2Y5vHEb7VQ0zCmYwgs/x+qA2JAJclo6FLyZaOXuZokDHMp4OC9fyPdJ\nVT+R2GX3k4gBjYC7q1n+XW5d+ydlQ/WdEoBlc+FMCSEoIq4hjTg="
+
+
