@@ -1,32 +1,35 @@
-before_install:
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-
-install:
-    - "wget -O addon-sdk.tar.gz https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-1.12.tar.gz"
-    - "tar -xf addon-sdk.tar.gz"
-
-script: 
-    - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
-    - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
-    - "export OF_RT1=r.88S68.user-FOCYfst5zkXVZEe7SM4YT7M4mkyoJeYka4kCDHBL-"
-    - "OF_DATA={\"refreshtoken\":\"$OF_RT1$OF_RT2\"}"
-    - "OF_ACCESSTOKEN=$(curl -X POST --data $OF_DATA https://open.ge.tt/1/users/login | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"accesstoken\"]')"
-    - "OF_PUTURL=$(curl -X POST --data '{\"filename\":\"plugin.xpi\"}' https://open.ge.tt/1/files/63sezAX/create?accesstoken=$OF_ACCESSTOKEN | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[\"upload\"][\"puturl\"]')"
-    - "curl --upload-file testdon.xpi $OF_PUTURL"
-
-notifications:
-  irc:
-    channels:
-        - "irc.freenode.org#travistestin"
-        - "irc.mozilla.org#travistesting"
-        - "irc.cc.tut.fi#travistesting"
-    use_notice: true
+--- 
+install: 
+- wget -O addon-sdk.tar.gz https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/addon-sdk-1.12.tar.gz
+- tar -xf addon-sdk.tar.gz
+notifications: 
   email: true
-  
-env:
-  global:
-    secure: "lUjK1TJRgf8GnXisXgrRtRSJqkIUBs77ioPQkW1lDO96snd9ybKxRXhLNvsy\nn9Wyvfzcg0oyniUWJZn/F1hn1iC4YQAnrtLC2DPr8vHXQh3xtIEJ6heb+BEO\nn6QRkV8QC3vAL2+CIyJLLPftQgYZYjJr9m9fwc5PQmDa4RmRDeo="
-    secure: "E2K5lPUjAEv3s+KKls5nwss+IEqusFovubz2K1LvqpX8J27GoSwaz6VVO9fL\nhpUgBfVUSSdFarEiHY1dQF/ma2Slzr2BYRl+ilQKLab64r+dhdr5UgPsOUnv\nAUV/3I1KY8uxJQzz7vErRbUjrgtRF2GNySBvFGrdZNtqoh+G0so="
-
-
+  irc: 
+    channels: 
+    - irc.freenode.org#travistestin
+    - irc.mozilla.org#travistesting
+    - irc.cc.tut.fi#travistesting
+    use_notice: true
+env: 
+  matrix: 
+  - secure: |-
+      M8+QrkvjQ4VQh7/6wsBs/U+tKav4M3n0c7S2JydEQixPFfYovQm9c1O1MY56
+      HNjlBw1ZN95YdSBCf2SbjFzrmkcZGjOWktgi+X4ewqB5F8dBaIQXL50wbmGO
+      VWs6FCVpPgRWbWsBWs596cLB9BwSoTJCd0h0dobxcY/kgmt9T2g=
+  global: 
+  - secure: |-
+      gDsPQVU4q1U9cZ34jo+bFBJ/V9OLor8C6zTTjW2SKMBbqYAXUl5p5ezxrwHU
+      xO9bdpWwcNBIwm2baPuo3oFE+8SsCHFAl7+FI3v62vBkGIOdaO30GNbPO20z
+      rmlkaq1QiCs1SZ22AP5hwjcd0jH5RrZxXJWUvv6k6XBlX3wzAdU=
+before_install: 
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+script: 
+- ~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test
+- ~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi
+- echo $OF_RT1 | cut -b 1-4
+- echo $OF_RT2 | cut -b 1-4
+- OF_DATA={\"refreshtoken\":\"$OF_RT1$OF_RT2\"}
+- OF_ACCESSTOKEN=$(curl -X POST --data $OF_DATA https://open.ge.tt/1/users/login | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["accesstoken"]')
+- OF_PUTURL=$(curl -X POST --data '{"filename":"plugin.xpi"}' https://open.ge.tt/1/files/63sezAX/create?accesstoken=$OF_ACCESSTOKEN | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["upload"]["puturl"]')
+- curl --upload-file testdon.xpi $OF_PUTURL
