@@ -8,6 +8,7 @@ install:
     - "alias cfx=`pwd`/addon-sdk-1.12/bin/cfx"
 
 script: 
+    - "stty -echo"
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx test"
     - "~/build/ohtufox/helloworld/addon-sdk-1.12/bin/cfx xpi"
     - "OF_DATA={\"refreshtoken\":\"$OF_REFRESHTOKEN\"}"
